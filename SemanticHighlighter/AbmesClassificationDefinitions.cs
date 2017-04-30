@@ -18,6 +18,14 @@ namespace SemanticHighlighter
         private static ClassificationTypeDefinition _braceTypeDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
+        [Name(FormatConstants.Bracket)]
+        private static ClassificationTypeDefinition _bracketTypeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(FormatConstants.Parenthesis)]
+        private static ClassificationTypeDefinition _parenthesisTypeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
         [Name(FormatConstants.Namespace)]
         private static ClassificationTypeDefinition _namespaceTypeDefinition;
 

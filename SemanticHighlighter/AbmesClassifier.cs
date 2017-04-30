@@ -14,11 +14,15 @@ namespace SemanticHighlighter
     internal class AbmesClassifier : IClassifier
     {
         private readonly IClassificationType _braceClassificationType;
+        private readonly IClassificationType _bracketClassificationType;
+        private readonly IClassificationType _parenClassificationType;
         private readonly IClassificationType _namespaceClassificationType;
 
         internal AbmesClassifier(IClassificationTypeRegistryService registry)
         {
             _braceClassificationType = registry.GetClassificationType(FormatConstants.Brace);
+            _bracketClassificationType = registry.GetClassificationType(FormatConstants.Bracket);
+            _parenClassificationType = registry.GetClassificationType(FormatConstants.Parenthesis);
             _namespaceClassificationType = registry.GetClassificationType(FormatConstants.Namespace);
         }
 
@@ -32,6 +36,8 @@ namespace SemanticHighlighter
 
             var result = new List<ClassificationSpan>();
             result.AddRange(snapshotContext.ClassifyTokens(span, _braceClassificationType, ClassificationTypeNames.Punctuation, SyntaxKind.OpenBraceToken, SyntaxKind.CloseBraceToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _bracketClassificationType, ClassificationTypeNames.Punctuation, SyntaxKind.OpenBracketToken, SyntaxKind.CloseBracketToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _parenClassificationType, ClassificationTypeNames.Punctuation, SyntaxKind.OpenParenToken, SyntaxKind.CloseParenToken));
             result.AddRange(snapshotContext.ClassifySymbols(span, _namespaceClassificationType, ClassificationTypeNames.Identifier, SymbolKind.Namespace));
             return result;
         }

@@ -25,6 +25,34 @@ namespace SemanticHighlighter
     }
 
     [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Bracket)]
+    [Name(FormatConstants.Bracket)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesBracketFormat : ClassificationFormatDefinition
+    {
+        public AbmesBracketFormat()
+        {
+            DisplayName = "Abmes Bracket";
+            ForegroundColor = Colors.Red;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Parenthesis)]
+    [Name(FormatConstants.Parenthesis)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesParenthesisFormat : ClassificationFormatDefinition
+    {
+        public AbmesParenthesisFormat()
+        {
+            DisplayName = "Abmes Parenthesis";
+            ForegroundColor = Colors.Red;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = FormatConstants.Namespace)]
     [Name(FormatConstants.Namespace)]
     [UserVisible(true)]
