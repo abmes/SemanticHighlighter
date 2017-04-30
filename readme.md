@@ -1,6 +1,6 @@
 Abmes.SemanticHighlighter
 =========================
-[![Build status](https://ci.appveyor.com/api/projects/status/bdm9l3rwyhlt477w?svg=true)](https://ci.appveyor.com/project/abmes/syntaxhighlighter)
+[![Build status](https://ci.appveyor.com/api/projects/status/ga0hpujttna3ot73?svg=true)](https://ci.appveyor.com/project/abmes/semantichighlighter)
 
 This is a Visual Studio 2017+ extension which adds the following classification types:
 - Abmes Brace - matches '**{**' and '**}**'
