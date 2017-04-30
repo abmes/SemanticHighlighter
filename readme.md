@@ -1,4 +1,4 @@
-Abmes.SemanticHighlighter
+Semantic Highlighter
 =========================
 [![Build status](https://ci.appveyor.com/api/projects/status/ga0hpujttna3ot73?svg=true)](https://ci.appveyor.com/project/abmes/semantichighlighter)
 
@@ -18,6 +18,12 @@ Compatible Visual Studio Versions
 ---------------------------------
 Currently this extension is supported for:
 * Visual Studio 2017
+
+
+Default Colors
+--------------
+- Abmes Brace: Blue
+- Abmes Namespace: R: 120, G: 10, B: 170
 
 
 Recommended Colors
