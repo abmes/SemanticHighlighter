@@ -4,6 +4,8 @@ Semantic Highlighter
 
 This is a Visual Studio 2017+ extension which adds the following classification types:
 - Abmes Brace - matches '**{**' and '**}**'
+- Abmes Bracket - matches '**[**' and '**]**'
+- Abmes Parenthesis - matches '**(**' and '**)**'
 - Abmes Namespace - matches a C# namespace
 
 The above classification types can then be colored by going to Tools -> Options -> Fonts and Colors
@@ -23,6 +25,8 @@ Currently this extension is supported for:
 Default Colors
 --------------
 - Abmes Brace: Blue
+- Abmes Bracket: Red
+- Abmes Parenthesis: Red
 - Abmes Namespace: R: 120, G: 10, B: 170
 
 
