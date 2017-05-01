@@ -2,13 +2,17 @@ Semantic Highlighter
 =========================
 [![Build status](https://ci.appveyor.com/api/projects/status/ga0hpujttna3ot73?svg=true)](https://ci.appveyor.com/project/abmes/semantichighlighter)
 
-This is a Visual Studio 2017+ extension which adds the following classification types:
-- Abmes Brace - matches '**{**' and '**}**'
-- Abmes Bracket - matches '**[**' and '**]**'
-- Abmes Parenthesis - matches '**(**' and '**)**'
-- Abmes Namespace - matches a C# namespace
+This is a Visual Studio extension which adds the following Classification Types
 
-The above classification types can then be colored by going to Tools -> Options -> Fonts and Colors
+| Classification Type |       Elements       |     Default Color     |
+|:--------------------|:--------------------:|:---------------------:|
+| Abmes Namespace     | C# Namespace         | R: 120, G: 10, B: 170 |
+| Abmes Brace         | '**{**' and '**}**'  | Blue                  |
+| Abmes Bracket       | '**[**' and '**]**'  | Red                   |
+| Abmes Parenthesis   | '**(**' and '**)**'  | Red                   |
+| Abmes Colon         | '**:**'              | Red                   |
+
+The colors can be changed by going to Tools -> Options -> Fonts and Colors
 
 
 Installation
@@ -18,16 +22,7 @@ You can get the latest release from the Visual Studio Gallery. Go to Tools -> Ex
 
 Compatible Visual Studio Versions
 ---------------------------------
-Currently this extension is supported for:
 * Visual Studio 2017
-
-
-Default Colors
---------------
-- Abmes Brace: Blue
-- Abmes Bracket: Red
-- Abmes Parenthesis: Red
-- Abmes Namespace: R: 120, G: 10, B: 170
 
 
 Recommended Colors
@@ -40,8 +35,6 @@ Recommended Colors
 - XML Doc Comment = Silver
 - Number = Navy
 - Preprocessor Keyword = Olive
-- C# Namespace (Abmes) = R: 120, G: 10, B: 170
-- C#/JS/TS Brace (Abmes) = Blue
 - HTML Razor Code Background = Automatic
 - HTML Server-Side Script - Background = Automatic
 - HTML Server-Side Script - Foreground = Purple
