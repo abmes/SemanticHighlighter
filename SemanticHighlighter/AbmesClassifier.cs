@@ -13,17 +13,20 @@ namespace SemanticHighlighter
 {
     internal class AbmesClassifier : IClassifier
     {
-        private readonly IClassificationType _braceClassificationType;
-        private readonly IClassificationType _bracketClassificationType;
-        private readonly IClassificationType _parenClassificationType;
-        private readonly IClassificationType _namespaceClassificationType;
+        private readonly IDictionary<string, IClassificationType> _classificationTypes;
 
         internal AbmesClassifier(IClassificationTypeRegistryService registry)
         {
-            _braceClassificationType = registry.GetClassificationType(FormatConstants.Brace);
-            _bracketClassificationType = registry.GetClassificationType(FormatConstants.Bracket);
-            _parenClassificationType = registry.GetClassificationType(FormatConstants.Parenthesis);
-            _namespaceClassificationType = registry.GetClassificationType(FormatConstants.Namespace);
+            _classificationTypes = new Dictionary<string, IClassificationType>
+            {
+                [FormatConstants.Namespace] = registry.GetClassificationType(FormatConstants.Namespace),
+                [FormatConstants.Brace] = registry.GetClassificationType(FormatConstants.Brace),
+                [FormatConstants.Bracket] = registry.GetClassificationType(FormatConstants.Bracket),
+                [FormatConstants.Parenthesis] = registry.GetClassificationType(FormatConstants.Parenthesis),
+                [FormatConstants.Colon] = registry.GetClassificationType(FormatConstants.Colon),
+                [FormatConstants.Semicolon] = registry.GetClassificationType(FormatConstants.Semicolon),
+                [FormatConstants.Comma] = registry.GetClassificationType(FormatConstants.Comma)
+            };
         }
 
         #pragma warning disable 67
@@ -35,10 +38,13 @@ namespace SemanticHighlighter
             var snapshotContext = SnapshotContext.GetContext(span.Snapshot);
 
             var result = new List<ClassificationSpan>();
-            result.AddRange(snapshotContext.ClassifyTokens(span, _braceClassificationType, ClassificationTypeNames.Punctuation, SyntaxKind.OpenBraceToken, SyntaxKind.CloseBraceToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _bracketClassificationType, ClassificationTypeNames.Punctuation, SyntaxKind.OpenBracketToken, SyntaxKind.CloseBracketToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _parenClassificationType, ClassificationTypeNames.Punctuation, SyntaxKind.OpenParenToken, SyntaxKind.CloseParenToken));
-            result.AddRange(snapshotContext.ClassifySymbols(span, _namespaceClassificationType, ClassificationTypeNames.Identifier, SymbolKind.Namespace));
+            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Namespace], ClassificationTypeNames.Identifier, SymbolKind.Namespace));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Brace], ClassificationTypeNames.Punctuation, SyntaxKind.OpenBraceToken, SyntaxKind.CloseBraceToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Bracket], ClassificationTypeNames.Punctuation, SyntaxKind.OpenBracketToken, SyntaxKind.CloseBracketToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Parenthesis], ClassificationTypeNames.Punctuation, SyntaxKind.OpenParenToken, SyntaxKind.CloseParenToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Colon], ClassificationTypeNames.Punctuation, SyntaxKind.ColonToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Semicolon], ClassificationTypeNames.Punctuation, SyntaxKind.SemicolonToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Comma], ClassificationTypeNames.Punctuation, SyntaxKind.CommaToken));
             return result;
         }
     }

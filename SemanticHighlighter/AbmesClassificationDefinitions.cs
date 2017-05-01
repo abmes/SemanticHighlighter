@@ -14,6 +14,10 @@ namespace SemanticHighlighter
         #pragma warning disable 169
 
         [Export(typeof(ClassificationTypeDefinition))]
+        [Name(FormatConstants.Namespace)]
+        private static ClassificationTypeDefinition _namespaceTypeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
         [Name(FormatConstants.Brace)]
         private static ClassificationTypeDefinition _braceTypeDefinition;
 
@@ -26,8 +30,16 @@ namespace SemanticHighlighter
         private static ClassificationTypeDefinition _parenthesisTypeDefinition;
 
         [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Namespace)]
-        private static ClassificationTypeDefinition _namespaceTypeDefinition;
+        [Name(FormatConstants.Colon)]
+        private static ClassificationTypeDefinition _colonTypeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(FormatConstants.Semicolon)]
+        private static ClassificationTypeDefinition _semicolonTypeDefinition;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(FormatConstants.Comma)]
+        private static ClassificationTypeDefinition _commaTypeDefinition;
 
         #pragma warning restore 169
     }

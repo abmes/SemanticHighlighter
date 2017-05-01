@@ -11,6 +11,20 @@ using Microsoft.VisualStudio.Utilities;
 namespace SemanticHighlighter
 {
     [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Namespace)]
+    [Name(FormatConstants.Namespace)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesNamespaceFormat : ClassificationFormatDefinition
+    {
+        public AbmesNamespaceFormat()
+        {
+            DisplayName = "Abmes Namespace";
+            ForegroundColor = Color.FromRgb(120, 10, 170);
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = FormatConstants.Brace)]
     [Name(FormatConstants.Brace)]
     [UserVisible(true)]
@@ -53,16 +67,44 @@ namespace SemanticHighlighter
     }
 
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = FormatConstants.Namespace)]
-    [Name(FormatConstants.Namespace)]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Colon)]
+    [Name(FormatConstants.Colon)]
     [UserVisible(true)]
     [Order(After = Priority.High)]
-    internal sealed class AbmesNamespaceFormat : ClassificationFormatDefinition
+    internal sealed class AbmesColonFormat : ClassificationFormatDefinition
     {
-        public AbmesNamespaceFormat()
+        public AbmesColonFormat()
         {
-            DisplayName = "Abmes Namespace";
-            ForegroundColor = Color.FromRgb(120, 10, 170);
+            DisplayName = "Abmes Colon";
+            ForegroundColor = Colors.Red;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Semicolon)]
+    [Name(FormatConstants.Semicolon)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesSemicolonFormat : ClassificationFormatDefinition
+    {
+        public AbmesSemicolonFormat()
+        {
+            DisplayName = "Abmes Semicolon";
+            ForegroundColor = Colors.Red;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Comma)]
+    [Name(FormatConstants.Comma)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesCommaFormat : ClassificationFormatDefinition
+    {
+        public AbmesCommaFormat()
+        {
+            DisplayName = "Abmes Comma";
+            ForegroundColor = Colors.Red;
         }
     }
 }
