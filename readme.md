@@ -3,14 +3,22 @@ Semantic Highlighter
 [![Build status](https://ci.appveyor.com/api/projects/status/ga0hpujttna3ot73?svg=true)](https://ci.appveyor.com/project/abmes/semantichighlighter)
 
 This is a Visual Studio extension which adds the following Classification Types
+
 The colors can be changed from Tools -> Options -> Fonts and Colors
 
 | Classification Type |       Elements       |     Default Color     |
 |:--------------------|:--------------------:|:---------------------:|
-| Abmes Namespace     | C# Namespace         | R: 120, G: 10, B: 170 |
+| Abmes Namespace     | Namespace            | R: 120, G: 10, B: 170 |
+| Abmes Local         | Local Variable       | None                  |
+| Abmes Parameter     | Method Parameter     | None                  |
+| Abmes Field         | Class Field          | None                  |
+| Abmes Property      | Class Property       | None                  |
+| Abmes Event         | Class Event          | None                  |
+| Abmes Method        | Class Method         | None                  |
 | Abmes Brace         | **{** and **}**      | Blue                  |
 | Abmes Bracket       | **[** and **]**      | Red                   |
 | Abmes Parenthesis   | **(** and **)**      | Red                   |
+| Abmes Angle Bracket | **<** and **>**      | Red                   |
 | Abmes Colon         | **:**                | Red                   |
 | Abmes Semicolon     | **;**                | Red                   |
 | Abmes Comma         | **,**                | Red                   |

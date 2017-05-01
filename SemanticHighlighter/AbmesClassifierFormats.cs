@@ -25,6 +25,84 @@ namespace SemanticHighlighter
     }
 
     [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Local)]
+    [Name(FormatConstants.Local)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesLocalFormat : ClassificationFormatDefinition
+    {
+        public AbmesLocalFormat()
+        {
+            DisplayName = "Abmes Local";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Parameter)]
+    [Name(FormatConstants.Parameter)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesParameterFormat : ClassificationFormatDefinition
+    {
+        public AbmesParameterFormat()
+        {
+            DisplayName = "Abmes Parameter";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Field)]
+    [Name(FormatConstants.Field)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesFieldFormat : ClassificationFormatDefinition
+    {
+        public AbmesFieldFormat()
+        {
+            DisplayName = "Abmes Field";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Property)]
+    [Name(FormatConstants.Property)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesPropertyFormat : ClassificationFormatDefinition
+    {
+        public AbmesPropertyFormat()
+        {
+            DisplayName = "Abmes Property";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Event)]
+    [Name(FormatConstants.Event)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesEventFormat : ClassificationFormatDefinition
+    {
+        public AbmesEventFormat()
+        {
+            DisplayName = "Abmes Event";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.Method)]
+    [Name(FormatConstants.Method)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesMethodFormat : ClassificationFormatDefinition
+    {
+        public AbmesMethodFormat()
+        {
+            DisplayName = "Abmes Method";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = FormatConstants.Brace)]
     [Name(FormatConstants.Brace)]
     [UserVisible(true)]
@@ -104,6 +182,20 @@ namespace SemanticHighlighter
         public AbmesCommaFormat()
         {
             DisplayName = "Abmes Comma";
+            ForegroundColor = Colors.Red;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = FormatConstants.AngleBracket)]
+    [Name(FormatConstants.AngleBracket)]
+    [UserVisible(true)]
+    [Order(After = Priority.High)]
+    internal sealed class AbmesAngleBracketFormat : ClassificationFormatDefinition
+    {
+        public AbmesAngleBracketFormat()
+        {
+            DisplayName = "Abmes Angle Bracket";
             ForegroundColor = Colors.Red;
         }
     }

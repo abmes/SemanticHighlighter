@@ -9,11 +9,18 @@ namespace SemanticHighlighter
     internal static class FormatConstants
     {
         public const string Namespace = "abmes.namespace";
+        public const string Local = "abmes.local";
+        public const string Parameter = "abmes.parameter";
+        public const string Field = "abmes.field";
+        public const string Property = "abmes.property";
+        public const string Event = "abmes.event";
+        public const string Method = "abmes.method";
         public const string Brace = "abmes.brace";
         public const string Bracket = "abmes.bracket";
         public const string Parenthesis = "abmes.parenthesis";
         public const string Colon = "abmes.colon";
         public const string Semicolon = "abmes.semicolon";
         public const string Comma = "abmes.comma";
+        public const string AngleBracket = "abmes.anglebracket";
     }
 }

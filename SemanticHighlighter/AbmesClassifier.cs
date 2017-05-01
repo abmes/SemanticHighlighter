@@ -20,12 +20,19 @@ namespace SemanticHighlighter
             _classificationTypes = new Dictionary<string, IClassificationType>
             {
                 [FormatConstants.Namespace] = registry.GetClassificationType(FormatConstants.Namespace),
+                [FormatConstants.Local] = registry.GetClassificationType(FormatConstants.Local),
+                [FormatConstants.Parameter] = registry.GetClassificationType(FormatConstants.Parameter),
+                [FormatConstants.Field] = registry.GetClassificationType(FormatConstants.Field),
+                [FormatConstants.Property] = registry.GetClassificationType(FormatConstants.Property),
+                [FormatConstants.Event] = registry.GetClassificationType(FormatConstants.Event),
+                [FormatConstants.Method] = registry.GetClassificationType(FormatConstants.Method),
                 [FormatConstants.Brace] = registry.GetClassificationType(FormatConstants.Brace),
                 [FormatConstants.Bracket] = registry.GetClassificationType(FormatConstants.Bracket),
                 [FormatConstants.Parenthesis] = registry.GetClassificationType(FormatConstants.Parenthesis),
                 [FormatConstants.Colon] = registry.GetClassificationType(FormatConstants.Colon),
                 [FormatConstants.Semicolon] = registry.GetClassificationType(FormatConstants.Semicolon),
-                [FormatConstants.Comma] = registry.GetClassificationType(FormatConstants.Comma)
+                [FormatConstants.Comma] = registry.GetClassificationType(FormatConstants.Comma),
+                [FormatConstants.AngleBracket] = registry.GetClassificationType(FormatConstants.AngleBracket)
             };
         }
 
@@ -38,13 +45,23 @@ namespace SemanticHighlighter
             var snapshotContext = SnapshotContext.GetContext(span.Snapshot);
 
             var result = new List<ClassificationSpan>();
+
             result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Namespace], ClassificationTypeNames.Identifier, SymbolKind.Namespace));
+            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Local], ClassificationTypeNames.Identifier, SymbolKind.Local));
+            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Parameter], ClassificationTypeNames.Identifier, SymbolKind.Parameter));
+            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Field], ClassificationTypeNames.Identifier, SymbolKind.Field));
+            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Property], ClassificationTypeNames.Identifier, SymbolKind.Property));
+            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Event], ClassificationTypeNames.Identifier, SymbolKind.Event));
+            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Method], ClassificationTypeNames.Identifier, SymbolKind.Method));
+
             result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Brace], ClassificationTypeNames.Punctuation, SyntaxKind.OpenBraceToken, SyntaxKind.CloseBraceToken));
             result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Bracket], ClassificationTypeNames.Punctuation, SyntaxKind.OpenBracketToken, SyntaxKind.CloseBracketToken));
             result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Parenthesis], ClassificationTypeNames.Punctuation, SyntaxKind.OpenParenToken, SyntaxKind.CloseParenToken));
             result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Colon], ClassificationTypeNames.Punctuation, SyntaxKind.ColonToken));
             result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Semicolon], ClassificationTypeNames.Punctuation, SyntaxKind.SemicolonToken));
             result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Comma], ClassificationTypeNames.Punctuation, SyntaxKind.CommaToken));
+            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.AngleBracket], ClassificationTypeNames.Punctuation, SyntaxKind.LessThanToken, SyntaxKind.GreaterThanToken));
+
             return result;
         }
     }
