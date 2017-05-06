@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="SemanticHighlighter.Abmes.71d1aca8-3ba5-4d54-9df2-b7f0de4d7e8a" Version="1.2" Language="en-US" Publisher="Abmes" />
+    <Identity Id="SemanticHighlighter.Abmes.71d1aca8-3ba5-4d54-9df2-b7f0de4d7e8a" Version="1.2.1" Language="en-US" Publisher="Abmes" />
     <DisplayName>Semantic Highlighter</DisplayName>
     <Description xml:space="preserve">Adds custom classification types for C#</Description>
     <MoreInfo>https://github.com/abmes/SemanticHighlighter</MoreInfo>
