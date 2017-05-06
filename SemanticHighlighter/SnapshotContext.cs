@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Classification;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
@@ -57,6 +58,17 @@ namespace SemanticHighlighter
                 .Where(x =>
                 {
                     var node = _syntaxRoot.FindNode(x.TextSpan);
+
+                    if (node is ArgumentSyntax arg)
+                    {
+                        node = arg.Expression; // flatten it only to the expression of the argument 
+                    }
+
+                    if (node.Parent is NameColonSyntax)
+                    {
+                        return false; // no coloring for the parameter names
+                    }
+
                     var symbol = _semanticModel.GetSymbolInfo(node).Symbol ?? _semanticModel.GetDeclaredSymbol(node);
                     return (symbol != null) && symbolKinds.Contains(symbol.Kind);
                 })
