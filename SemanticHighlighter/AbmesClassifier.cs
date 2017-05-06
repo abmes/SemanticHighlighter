@@ -46,21 +46,25 @@ namespace SemanticHighlighter
 
             var result = new List<ClassificationSpan>();
 
-            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Namespace], ClassificationTypeNames.Identifier, SymbolKind.Namespace));
-            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Local], ClassificationTypeNames.Identifier, SymbolKind.Local));
-            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Parameter], ClassificationTypeNames.Identifier, SymbolKind.Parameter));
-            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Field], ClassificationTypeNames.Identifier, SymbolKind.Field));
-            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Property], ClassificationTypeNames.Identifier, SymbolKind.Property));
-            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Event], ClassificationTypeNames.Identifier, SymbolKind.Event));
-            result.AddRange(snapshotContext.ClassifySymbols(span, _classificationTypes[FormatConstants.Method], ClassificationTypeNames.Identifier, SymbolKind.Method));
+            var identifiers = snapshotContext.GetDefaultClassifiedSpans(span).Where(x => x.ClassificationType == ClassificationTypeNames.Identifier);
 
-            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Brace], ClassificationTypeNames.Punctuation, SyntaxKind.OpenBraceToken, SyntaxKind.CloseBraceToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Bracket], ClassificationTypeNames.Punctuation, SyntaxKind.OpenBracketToken, SyntaxKind.CloseBracketToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Parenthesis], ClassificationTypeNames.Punctuation, SyntaxKind.OpenParenToken, SyntaxKind.CloseParenToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Colon], ClassificationTypeNames.Punctuation, SyntaxKind.ColonToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Semicolon], ClassificationTypeNames.Punctuation, SyntaxKind.SemicolonToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.Comma], ClassificationTypeNames.Punctuation, SyntaxKind.CommaToken));
-            result.AddRange(snapshotContext.ClassifyTokens(span, _classificationTypes[FormatConstants.AngleBracket], ClassificationTypeNames.Punctuation, SyntaxKind.LessThanToken, SyntaxKind.GreaterThanToken));
+            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Namespace], SymbolKind.Namespace));
+            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Local], SymbolKind.Local));
+            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Parameter], SymbolKind.Parameter));
+            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Field], SymbolKind.Field));
+            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Property], SymbolKind.Property));
+            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Event], SymbolKind.Event));
+            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Method], SymbolKind.Method));
+
+            var punctuation = snapshotContext.GetDefaultClassifiedSpans(span).Where(x => x.ClassificationType == ClassificationTypeNames.Punctuation);
+
+            result.AddRange(snapshotContext.ClassifyTokens(punctuation, _classificationTypes[FormatConstants.Brace], SyntaxKind.OpenBraceToken, SyntaxKind.CloseBraceToken));
+            result.AddRange(snapshotContext.ClassifyTokens(punctuation, _classificationTypes[FormatConstants.Bracket], SyntaxKind.OpenBracketToken, SyntaxKind.CloseBracketToken));
+            result.AddRange(snapshotContext.ClassifyTokens(punctuation, _classificationTypes[FormatConstants.Parenthesis], SyntaxKind.OpenParenToken, SyntaxKind.CloseParenToken));
+            result.AddRange(snapshotContext.ClassifyTokens(punctuation, _classificationTypes[FormatConstants.Colon], SyntaxKind.ColonToken));
+            result.AddRange(snapshotContext.ClassifyTokens(punctuation, _classificationTypes[FormatConstants.Semicolon], SyntaxKind.SemicolonToken));
+            result.AddRange(snapshotContext.ClassifyTokens(punctuation, _classificationTypes[FormatConstants.Comma], SyntaxKind.CommaToken));
+            result.AddRange(snapshotContext.ClassifyTokens(punctuation, _classificationTypes[FormatConstants.AngleBracket], SyntaxKind.LessThanToken, SyntaxKind.GreaterThanToken));
 
             return result;
         }

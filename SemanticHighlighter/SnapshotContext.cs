@@ -15,15 +15,28 @@ namespace SemanticHighlighter
 {
     internal class SnapshotContext
     {
-        private Workspace _workspace;
-        private Document _document;
-        private SemanticModel _semanticModel;
-        private SyntaxNode _syntaxRoot;
+        private readonly ITextSnapshot _snapshot;
+        private readonly Workspace _workspace;
+        private readonly Document _document;
+        private readonly SemanticModel _semanticModel;
+        private readonly SyntaxNode _syntaxRoot;
 
-        private static IDictionary<ITextSnapshot, SnapshotContext> _cachedContexts = new Dictionary<ITextSnapshot, SnapshotContext>();
+        private static readonly IDictionary<ITextSnapshot, SnapshotContext> _cachedContexts = new Dictionary<ITextSnapshot, SnapshotContext>();
+        private readonly IDictionary<SnapshotSpan, IEnumerable<ClassifiedSpan>> _cachedClassifiedSpans = new Dictionary<SnapshotSpan, IEnumerable<ClassifiedSpan>>();
 
-        public SnapshotContext(ITextSnapshot snapshot)
+        public static SnapshotContext GetContext(ITextSnapshot snapshot)
         {
+            if (!_cachedContexts.ContainsKey(snapshot))
+            {
+                _cachedContexts[snapshot] = new SnapshotContext(snapshot);
+            }
+
+            return _cachedContexts[snapshot];
+        }
+
+        private SnapshotContext(ITextSnapshot snapshot)
+        {
+            _snapshot = snapshot;
             _workspace = snapshot.TextBuffer.GetWorkspace();
             _document = snapshot.GetOpenDocumentInCurrentContextWithChanges();
             if (_document != null)
@@ -33,28 +46,31 @@ namespace SemanticHighlighter
             }
         }
 
-        private IEnumerable<ClassifiedSpan> GetClassifiedSpans(SnapshotSpan span, string classificationType)
+        public IEnumerable<ClassifiedSpan> GetDefaultClassifiedSpans(SnapshotSpan span)
         {
             if (_document == null)
             {
                 return Enumerable.Empty<ClassifiedSpan>();
             }
 
-            var textSpan = TextSpan.FromBounds(span.Start, span.End);
-            return Classifier.GetClassifiedSpans(_semanticModel, textSpan, _workspace).Where(x => x.ClassificationType == classificationType);
+            if (!_cachedClassifiedSpans.ContainsKey(span))
+            {
+                var textSpan = TextSpan.FromBounds(span.Start, span.End);
+                _cachedClassifiedSpans[span] = Classifier.GetClassifiedSpans(_semanticModel, textSpan, _workspace).ToList();
+            }
+
+            return _cachedClassifiedSpans[span];
         }
 
-        public IEnumerable<ClassificationSpan> ClassifyTokens(SnapshotSpan span, IClassificationType classificationType, string parentClassificationType, params SyntaxKind[] syntaxKinds)
+        public IEnumerable<ClassificationSpan> ClassifyTokens(IEnumerable<ClassifiedSpan> classifiedSpans, IClassificationType classificationType, params SyntaxKind[] syntaxKinds)
         {
-            var parentClassifiedSpans = GetClassifiedSpans(span, parentClassificationType);
-            var matchedTokens = parentClassifiedSpans.Select(x => _syntaxRoot.FindToken(x.TextSpan.Start)).Where(x => syntaxKinds.Any(sk => x.IsKind(sk)));
-            return matchedTokens.Select(x => new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(x.Span.Start, x.Span.Length)), classificationType));
+            var matchedTokens = classifiedSpans.Select(x => _syntaxRoot.FindToken(x.TextSpan.Start)).Where(x => syntaxKinds.Any(sk => x.IsKind(sk)));
+            return matchedTokens.Select(x => new ClassificationSpan(new SnapshotSpan(_snapshot, new Span(x.Span.Start, x.Span.Length)), classificationType));
         }
 
-        public IEnumerable<ClassificationSpan> ClassifySymbols(SnapshotSpan span, IClassificationType classificationType, string parentClassificationType, params SymbolKind[] symbolKinds)
+        public IEnumerable<ClassificationSpan> ClassifySymbols(IEnumerable<ClassifiedSpan> classifiedSpans, IClassificationType classificationType, params SymbolKind[] symbolKinds)
         {
-            var parentClassifiedSpans = GetClassifiedSpans(span, parentClassificationType);
-            return parentClassifiedSpans
+            return classifiedSpans
                 .Where(x =>
                 {
                     var node = _syntaxRoot.FindNode(x.TextSpan);
@@ -66,23 +82,13 @@ namespace SemanticHighlighter
 
                     if (node.Parent is NameColonSyntax)
                     {
-                        return false; // no coloring for the parameter names
+                        return false; // no classification for the parameter names
                     }
 
                     var symbol = _semanticModel.GetSymbolInfo(node).Symbol ?? _semanticModel.GetDeclaredSymbol(node);
                     return (symbol != null) && symbolKinds.Contains(symbol.Kind);
                 })
-                .Select(x => new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(x.TextSpan.Start, x.TextSpan.Length)), classificationType));
-        }
-
-        public static SnapshotContext GetContext(ITextSnapshot snapshot)
-        {
-            if (!_cachedContexts.ContainsKey(snapshot))
-            {
-                _cachedContexts[snapshot] = new SnapshotContext(snapshot);
-            }
-
-            return _cachedContexts[snapshot];
+                .Select(x => new ClassificationSpan(new SnapshotSpan(_snapshot, new Span(x.TextSpan.Start, x.TextSpan.Length)), classificationType));
         }
     }
 }
