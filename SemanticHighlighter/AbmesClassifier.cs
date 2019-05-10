@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Classification;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.VisualStudio.Text;
@@ -19,13 +18,6 @@ namespace SemanticHighlighter
         {
             _classificationTypes = new Dictionary<string, IClassificationType>
             {
-                [FormatConstants.Namespace] = registry.GetClassificationType(FormatConstants.Namespace),
-                [FormatConstants.Local] = registry.GetClassificationType(FormatConstants.Local),
-                [FormatConstants.Parameter] = registry.GetClassificationType(FormatConstants.Parameter),
-                [FormatConstants.Field] = registry.GetClassificationType(FormatConstants.Field),
-                [FormatConstants.Property] = registry.GetClassificationType(FormatConstants.Property),
-                [FormatConstants.Event] = registry.GetClassificationType(FormatConstants.Event),
-                [FormatConstants.Method] = registry.GetClassificationType(FormatConstants.Method),
                 [FormatConstants.Brace] = registry.GetClassificationType(FormatConstants.Brace),
                 [FormatConstants.Bracket] = registry.GetClassificationType(FormatConstants.Bracket),
                 [FormatConstants.Parenthesis] = registry.GetClassificationType(FormatConstants.Parenthesis),
@@ -45,16 +37,6 @@ namespace SemanticHighlighter
             var snapshotContext = SnapshotContext.GetContext(span.Snapshot);
 
             var result = new List<ClassificationSpan>();
-
-            var identifiers = snapshotContext.GetDefaultClassifiedSpans(span).Where(x => x.ClassificationType == ClassificationTypeNames.Identifier);
-
-            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Namespace], SymbolKind.Namespace));
-            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Local], SymbolKind.Local));
-            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Parameter], SymbolKind.Parameter));
-            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Field], SymbolKind.Field));
-            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Property], SymbolKind.Property));
-            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Event], SymbolKind.Event));
-            result.AddRange(snapshotContext.ClassifySymbols(identifiers, _classificationTypes[FormatConstants.Method], SymbolKind.Method));
 
             var punctuation = snapshotContext.GetDefaultClassifiedSpans(span).Where(x => x.ClassificationType == ClassificationTypeNames.Punctuation);
 

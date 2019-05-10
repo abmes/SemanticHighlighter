@@ -14,34 +14,6 @@ namespace SemanticHighlighter
         #pragma warning disable 169
 
         [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Namespace)]
-        private static ClassificationTypeDefinition _namespaceTypeDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Local)]
-        private static ClassificationTypeDefinition _localTypeDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Parameter)]
-        private static ClassificationTypeDefinition _parameterTypeDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Field)]
-        private static ClassificationTypeDefinition _fieldTypeDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Property)]
-        private static ClassificationTypeDefinition _propertyTypeDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Event)]
-        private static ClassificationTypeDefinition _eventTypeDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
-        [Name(FormatConstants.Method)]
-        private static ClassificationTypeDefinition _methodTypeDefinition;
-
-        [Export(typeof(ClassificationTypeDefinition))]
         [Name(FormatConstants.Brace)]
         private static ClassificationTypeDefinition _braceTypeDefinition;
 

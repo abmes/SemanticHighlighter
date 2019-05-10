@@ -8,13 +8,6 @@ The colors can be changed from Tools -> Options -> Fonts and Colors
 
 | Classification Type |       Elements       |     Default Color     |
 |:--------------------|:--------------------:|:---------------------:|
-| Abmes Namespace     | Namespace            | R: 120, G: 10, B: 170 |
-| Abmes Local         | Local Variable       | None                  |
-| Abmes Parameter     | Method Parameter     | None                  |
-| Abmes Field         | Class Field          | None                  |
-| Abmes Property      | Class Property       | None                  |
-| Abmes Event         | Class Event          | None                  |
-| Abmes Method        | Class Method         | None                  |
 | Abmes Brace         | **{** and **}**      | Blue                  |
 | Abmes Bracket       | **[** and **]**      | Red                   |
 | Abmes Parenthesis   | **(** and **)**      | Red                   |
@@ -31,7 +24,8 @@ You can get the latest release from the Visual Studio Gallery. Go to Tools -> Ex
 
 Compatible Visual Studio Versions
 ---------------------------------
-* Visual Studio 2017
+* Visual Studio 2017 - up to Semantic Highlighter v1.2.1
+* Visual Studio 2019 - use at least Semantic Highlighter v1.3
 
 
 Recommended Colors
@@ -43,6 +37,7 @@ Recommended Colors
 - Comment = Gray
 - XML Doc Comment = Silver
 - Number = Navy
+- User Members - Namespaces = R: 120, G: 10, B: 170
 - Preprocessor Keyword = Olive
 - HTML Razor Code Background = Automatic
 - HTML Server-Side Script - Background = Automatic
